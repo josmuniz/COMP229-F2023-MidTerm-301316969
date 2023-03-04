@@ -28,12 +28,6 @@ router.get('/add', (req, res, next) => {
     res.render('books/details',{title:'Add Book', books:{}})
 });
 
-      /*title: req.body.title,
-      description: "null",
-      price: req.body.price,
-      author: req.body.author,
-      genre: req.body.genre */
-
 // POST process the Book Details page and create a new Book - CREATE
 router.post('/add', (req, res, next) => {
     let newBook = book({
@@ -62,8 +56,9 @@ router.get('/:id', (req, res, next) => {
      * ADD CODE HERE *
      *****************/
     let id = req.params.id;
-    Book.findById(id, (err, book) => {
-      res.render('book-details', {
+    console.log("1.-id es", id);
+    book.findById(id, (err, book) => {
+      res.render('books/details', {
         title: 'Edit Book',
         books: book
       });
@@ -76,21 +71,28 @@ router.post('/:id', (req, res, next) => {
     /*****************
      * ADD CODE HERE *
      *****************/
-    let id = req.params.id;
-    let book = {};
-    book.title = req.body.title;
-    book.price = req.body.price; 
-    book.author = req.body.author;
-    book.genre = req.body.genre;
-  
-    let query = {_id: id};
-    Book.update(query, book, (err) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.redirect('/books');
-      }
+    let id = req.params.id
+    console.log("2.-id es", id);
+    console.log("2.-title es", req.body.title);
+        
+    let updateBook = book({
+      "_id": id,
+      "Title": req.body.title,
+      "Description": "null",
+      "Price": req.body.price,
+      "Author": req.body.author,
+      "Genre": req.body.genre
     });
+    console.log("2.-book es", updateBook._id)
+
+    book.updateOne({ _id: id }, updateBook, (err) => {
+        if (err) {
+          console.log(err);
+          res.end(err);
+        } else {
+          res.redirect('/books');
+        }
+      });
   });
 
 
@@ -100,16 +102,15 @@ router.get('/delete/:id', (req, res, next) => {
     /*****************
      * ADD CODE HERE *
      *****************/
-    router.get('/delete/:id', (req, res) => {
       let id = req.params.id;
-      Book.remove({_id: id}, (err) => {
+      console.log("3.-id es", id);
+      book.remove({_id: id}, (err) => {
         if (err) {
           console.log(err);
         } else {
           res.redirect('/books');
         }
       });
-  });
 });
 
 

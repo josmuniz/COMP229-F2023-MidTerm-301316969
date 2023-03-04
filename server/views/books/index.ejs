@@ -1,3 +1,8 @@
+<!--   Author- Jose Muniz    
+     StudentID-301316969     
+     Last Updated on 03/03/2023 
+-->
+
 <% include ../partials/header.ejs %>
 
     <!-- MAIN CONTENT -->
@@ -8,6 +13,8 @@
           <!-- ------------------------ -->
           <!-- FIX THE ADD BUTTON BELOW -->
           <!-- ------------------------ -->
+          <!--Add button, is created and passed to the router via the Href
+                        in href attribute -->
           <a href="/books/add" class="btn btn-primary" type="button"> Add a book</a>
           <br>
           <div class="table-responsive">
@@ -33,18 +40,17 @@
                   <td class="text-center">
                     <!-- ------------------------ -->
                     <!-- ADD the EDIT BUTTON HERE -->
-                    <!-- 
-                    <a href="/books/edit/<%=books[count]._id%>" class="btn btn-primary"><i class="fas fa-pencil-alt"></i>Edit</a>
-                    -->
-                    <a href="/books/<%=books._id %>" class="btn btn-primary"><i class="fas fa-pencil-alt"></i>Edit</a>
-        
+                    <!--Edit button, is linked the register's ID of the book selected  is passed to that page via the URL
+                        in href attribute -->
+                    <a href="/books/<%= books[count]._id %>" class="btn btn-primary"><i class="fas fa-pencil-alt"></i>Edit</a>
                   </td>
 
                   <td class="text-center">
                     <!-- ------------------------ -->
                     <!-- ADD the DELETE BUTTON HERE -->
-                    <!-- ------------------------ -->
-                    <a href="/books/delete/<%=books._id %>" class="btn btn-danger"><i class="fas fa-trash-alt"></i>Delete</a>
+                    <!-- Delete  button, is linked the register's ID of the book selected is passed to the router via
+                        href attribute -->
+                    <a href="/books/delete/<%= books[count]._id %>" class="btn btn-danger"><i class="fas fa-trash-alt"></i>Delete</a>
                   </td>
                 </tr>
                 <% } %>
